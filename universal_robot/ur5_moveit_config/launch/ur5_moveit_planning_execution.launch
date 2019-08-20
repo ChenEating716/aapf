@@ -1,0 +1,25 @@
+<launch>
+  <arg name="sim" default="true" />
+  <arg name="limited" default="false"/>
+  <arg name="debug" default="false" />
+    
+  <!-- Remap follow_joint_trajectory -->
+  <remap if="$(arg sim)" from="/follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/>
+  
+  <!-- EDITADO -->
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"> -->
+    <!--<param name="/use_gui" value="true"/>--> <!--default: false--> 
+   <!-- <rosparam param="/source_list">[/joint_states,/simple_gripper/joint_states]</rosparam>-->
+    <!--rosparam param="/source_list">[/simple_gripper/joint_states]</rosparam--> <!--Arm position in rviz springt hiermit-->
+ <!-- </node>-->
+ <!-- EDITADO -->
+
+  <!-- Launch moveit -->
+  <include file="$(find ur5_moveit_config)/launch/move_group.launch">
+    <arg name="limited" default="$(arg limited)"/>
+    <arg name="debug" default="$(arg debug)" />
+  </include>
+
+  
+
+</launch>
